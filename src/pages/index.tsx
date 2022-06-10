@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Header, Navigation, ScrollTop } from '../components'
+import { Header, Navigation } from '../components'
 import AppLayout from '../layouts/AppLayout'
 import { MemberList } from 'src/widgets';
 
@@ -11,7 +11,6 @@ const Home: NextPage = () => {
         <Header />
         <MemberList />
       </AppLayout>
-      <ScrollTop />
     </>
   )
 }
