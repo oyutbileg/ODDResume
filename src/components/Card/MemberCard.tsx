@@ -22,7 +22,7 @@ const MemberCard: React.FC<{ data: User }> = ({ data }) => {
             <Heading size={['md', 'lg']} fontSize='50px'>
               {last_name}
             </Heading>
-            <Text noOfLines={1} fontSize={['xl', '1xl']}>{position}</Text>
+            <Text color={'gray.500'} noOfLines={1} fontSize={'1rem'}>{position}</Text>
           </Box>
         </Stack>
       </Box>
