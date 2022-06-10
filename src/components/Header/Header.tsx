@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <>
       <Center>
-        <Text fontSize='4xl'> ITD - Auto Sourcing Development Team Members</Text>
+        <Text fontSize={['2xl', '3xl', '4xl']} align='center'> ITD - Auto Sourcing Development Team Members</Text>
       </Center>
     </>
   )
