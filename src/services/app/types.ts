@@ -3,7 +3,8 @@ export interface User {
   first_name: string
   last_name: string
   position: string
-  photo?: string
+  photo?: string,
+  portfolio_id: string
 }
 
 export interface UserDetail extends User {
