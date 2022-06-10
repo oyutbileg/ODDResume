@@ -9,6 +9,10 @@ const app = {
       return await http.get<User[]>(`/users`)
     }
   },
+
+  getProfile: async (id: string): Promise<any> => {
+    return await http.get<any>(`/portfolio/${id}`)
+  },
 }
 
 export default app
