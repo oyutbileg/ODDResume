@@ -10,7 +10,8 @@ export interface User {
 
 export interface UserDetail extends User {
   experience: number,
-  projects: Project[]
+  projects: Project[],
+  skill_tags?: string[],
 }
 
 export interface Project {
