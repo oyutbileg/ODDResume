@@ -8,7 +8,7 @@ interface SProps {
 const Dynamic: React.FC<SProps> = ({ size = 2 }) => {
   return (
     <Grid templateColumns='repeat(5, 1fr)' gap={3}>
-      {[...new Array(size)].map((i, idx) => <GridItem key={`skeleton-${idx}`} >
+      {[...new Array(size)].map((_i, idx) => <GridItem key={`skeleton-${idx}`} >
         <Box padding='6' boxShadow='lg'>
           <SkeletonCircle size='10' />
           <SkeletonText mt='4' noOfLines={2} spacing='4' />
