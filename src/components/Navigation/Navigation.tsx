@@ -56,7 +56,7 @@ const Navigation: React.FC<{ additionalMenu?: boolean }> = ({ additionalMenu = f
         <Flex alignItems={'center'}>
           {additionalMenu && <HStack spacing={8} alignItems={'center'}>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-              <NavLink key={"Skills"} title={'Skills'} href={'#skills'} />
+              {/* <NavLink key={"Skills"} title={'Skills'} href={'#skills'} /> */}
               <NavLink key={"Projects"} title={'Projects'} href={'#projects'} />
             </HStack>
           </HStack>}
