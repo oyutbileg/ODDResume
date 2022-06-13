@@ -12,7 +12,6 @@ interface Props {
 }
 
 const Slug: FC<Props> = ({ result }) => {
-  console.log(result);
   return <>
     <Navigation additionalMenu />
     <AppLayout>

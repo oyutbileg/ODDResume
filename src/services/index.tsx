@@ -25,8 +25,7 @@ export interface IOption {
   cancelToken?: CancelToken
 }
 
-const genHeader = (hasAuth = false, headers = {}) => {
-  console.log(hasAuth);
+const genHeader = (_hasAuth = false, headers = {}) => {
   return Object.assign(headers, { Language: i18n.language })
 }
 
