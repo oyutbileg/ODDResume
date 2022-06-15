@@ -14,7 +14,7 @@ const MemberCard: React.FC<{ data: User }> = ({ data }) => {
       _hover={{ boxShadow: useColorModeValue('1px 1px 3px 2px #d2d2d2', '1px 1px 5px 2px #fff') }}>
       <Box flexGrow={1} p='4'>
         <Stack spacing={2} direction='column' align="center" onClick={() => router.push(`/portfolio/${portfolio_id}`)} _hover={{ cursor: 'pointer' }}>
-          <Avatar size='2xl' name={`${first_name} ${last_name}`} src={`${process.env.NEXT_PUBLIC_GET_URL}/${photo}`} />
+          <Avatar size='2xl' name={`${first_name} ${last_name}`} src={photo ? `${process.env.NEXT_PUBLIC_GET_URL}/${photo}` : ''} />
           <Box textAlign='center'>
             <Heading size={['md', 'lg']} fontSize='50px'>
               {first_name}

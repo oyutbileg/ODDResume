@@ -24,36 +24,36 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }
 
-  return <>
-    <AuthProvider>
-      <ChakraProvider theme={theme}>
+  return (
+    <ChakraProvider theme={theme}>
+      <AuthProvider>
         <Component {...pageProps} />
-      </ChakraProvider>
-    </AuthProvider>
-    <Toaster
-      position="top-center"
-      reverseOrder={false}
-      gutter={8}
-      containerStyle={{
-        zIndex: 99999999,
-      }}
-      toastOptions={{
-        className: '',
-        duration: 5000,
-        style: {
-          background: '#fff',
-          color: '#000',
-        },
-        success: {
-          duration: 3000,
-          theme: {
-            primary: 'green',
-            secondary: 'black',
+      </AuthProvider>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerStyle={{
+          zIndex: 99999999,
+        }}
+        toastOptions={{
+          className: '',
+          duration: 5000,
+          style: {
+            background: '#fff',
+            color: '#000',
           },
-        },
-      }}
-    />
-  </>
+          success: {
+            duration: 3000,
+            theme: {
+              primary: 'green',
+              secondary: 'black',
+            },
+          },
+        }}
+      />
+    </ChakraProvider>
+  )
 }
 
 export default MyApp

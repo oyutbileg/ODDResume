@@ -10,6 +10,7 @@ import Title from './Title/Title'
 import ButtonLoader from './Loader/ButtonLoader'
 import Loader from './Loader/Loader'
 import InfinitePagination from './Pagination/InfinitePagination'
+import NotFound from './NotFound/NotFound'
 
 export {
   Header,
@@ -24,4 +25,5 @@ export {
   ButtonLoader,
   InfinitePagination,
   Loader,
+  NotFound
 }
