@@ -10,7 +10,7 @@ const app = {
     }
   },
 
-  getProfile: async (id: string): Promise<any> => {
+  getPortfolio: async (id: string): Promise<any> => {
     return await http.get<any>(`/portfolio/${id}`)
   },
 }
