@@ -34,15 +34,15 @@ const genHeader = (headers = {}) => {
 const handleError = (err: any, reject: any) => {
   if (err && err?.response?.status === 401) {
     auth.removeToken()
-    toast.error('Нэвтрэх эрхийн хугацаа дууссан.')
+    toast.error('Oops, maybe you have to login!.')
     router.replace('/')
-    return reject(err.response?.data || 'Нэвтрэх эрхийн хугацаа дууссан')
+    return reject(err.response?.data || 'Oops, maybe you have to login!.')
   }
 
   if (err && err.response && err.response.data) {
     return reject(err.response.data)
   }
-  return reject({ message: 'Сүлжээний алдаа дахин оролдоно уу' })
+  return reject({ message: 'Network problem, please try again!' })
 }
 
 const request = async <T,>(options: AxiosRequestConfig): Promise<any> => {
