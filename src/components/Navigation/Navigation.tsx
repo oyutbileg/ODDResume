@@ -10,6 +10,9 @@ import {
   Text
 } from '@chakra-ui/react'
 import { FaMoon, FaSun } from 'react-icons/fa'
+import { IoIosLogOut } from 'react-icons/io'
+import { useAuth } from 'src/contexts/auth'
+import { useRouter } from 'next/router'
 
 type Props = {
   title: any,
@@ -35,6 +38,15 @@ const Navigation: React.FC<{ additionalMenu?: boolean }> = ({ additionalMenu = f
   const { toggleColorMode } = useColorMode()
   const text = useColorModeValue('dark', 'light')
   const SwitchIcon = useColorModeValue(FaMoon, FaSun)
+
+  const [, dispatchUser] = useAuth()
+  const router = useRouter()
+
+  const handleSignOut = () => {
+    dispatchUser({ type: 'SIGN_OUT' })
+    router.replace('/')
+  }
+
   return (
     <>
       <Flex alignItems={'center'} justifyContent={'space-between'} px={5} py={3}>
@@ -69,6 +81,16 @@ const Navigation: React.FC<{ additionalMenu?: boolean }> = ({ additionalMenu = f
             onClick={toggleColorMode}
             icon={<SwitchIcon />}
             aria-label={`Switch to ${text} mode`}
+          />
+          <IconButton
+            size='md'
+            fontSize='lg'
+            variant='ghost'
+            color='current'
+            marginLeft='2'
+            onClick={handleSignOut}
+            icon={<IoIosLogOut />}
+            aria-label={`SignOut`}
           />
         </Flex>
       </Flex>

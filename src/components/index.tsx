@@ -8,6 +8,7 @@ import Navigation from './Navigation/Navigation'
 import Greeting from './Greeting/Greeting'
 import Title from './Title/Title'
 import ButtonLoader from './Loader/ButtonLoader'
+import Loader from './Loader/Loader'
 import InfinitePagination from './Pagination/InfinitePagination'
 
 export {
@@ -21,5 +22,6 @@ export {
   Title,
   Footer,
   ButtonLoader,
-  InfinitePagination
+  InfinitePagination,
+  Loader,
 }
