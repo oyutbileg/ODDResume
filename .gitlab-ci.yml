@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+deploy:
+  only:
+    - master
+  stage: deploy
+  script:
+    # - export FRONTEND_IMAGE=localhost:4000/resume/front:$(date "+%y%m%d%H%M")
+    - docker build --build-arg BACK_URL=${BACK_URL} --build-arg GET_URL=${BACK_URL} -t resume-front .
+    # - docker push $FRONTEND_IMAGE
+    # - microk8s kubectl set image deployment/frontend -n itrip frontend=$FRONTEND_IMAGE --record
+    - docker ps --quiet --filter="name=resume-front" | xargs --no-run-if-empty docker rm -f
+    - docker run -dt -p 4000:80 --restart always --name resume-front resume-front
+    - docker image prune -f
+  tags:
+    - resume-front
