@@ -46,7 +46,7 @@ const handleError = (err: any, reject: any) => {
 }
 
 const request = async <T,>(options: AxiosRequestConfig): Promise<any> => {
-  const token = localStorage.getItem("token");
+  const token = auth.getToken();
   axios.defaults.headers.common.Accept = "application/json";
   axios.defaults.headers.common["Accept-Language"] = "mn";
   axios.defaults.headers.common["Content-Type"] = "application/json";

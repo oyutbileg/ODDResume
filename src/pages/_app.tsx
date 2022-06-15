@@ -10,12 +10,13 @@ import "animate.css"
 import '../styles/globals.css'
 import theme from "../styles/theme"
 import { useRouter } from 'next/router'
+import auth from 'src/services/auth'
 
 function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter()
   if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('token');
+    const token = auth.hasToken();
     if (window.location.pathname !== '/' && !token) {
       router.replace('/')
     } else if (window.location.pathname === '/' && token) {

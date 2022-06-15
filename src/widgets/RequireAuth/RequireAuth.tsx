@@ -3,6 +3,7 @@ import React, { FC, useEffect } from 'react'
 import { Loader } from 'src/components'
 import router from 'next/router'
 import { useAuth } from 'src/contexts/auth'
+import auth from 'src/services/auth'
 
 const RequireAuth: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state] = useAuth()
@@ -11,7 +12,7 @@ const RequireAuth: FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
     const checkAuth = async (redirectPath: any) => {
       const isAuth = redirectPath.pathname.startsWith('/auth')
-      const hasToken = localStorage.getItem('token')
+      const hasToken = auth.hasToken()
       setLoading.setTrue()
       if (!isAuth && !hasToken) {
         router.push('/')

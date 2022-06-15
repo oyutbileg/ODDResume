@@ -22,7 +22,7 @@ const reducer: (state: SysUser, action: Action) => SysUser = (state: SysUser, ac
     case 'SIGN_IN':
       return action.user
     case 'SIGN_OUT':
-      localStorage.removeItem('token')
+      auth.removeToken()
       return defaultUser
     default:
       return state
