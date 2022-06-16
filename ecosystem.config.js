@@ -24,8 +24,8 @@ module.exports = {
       host: '54.179.168.190',
       ref: 'origin/main',
       key: '~/Documents/pems/resume-api.pem',
-      path: '/home/ec2-user/resume-front',
-      repo: 'git@gitlab.com:Erdenebulgan/resume-front.git',
+      path: '/home/ec2-user/resume',
+      repo: 'git@gitlab.com:Erdenebulgan/resume.git',
       'post-deploy': 'npm install && rm -rf dist && npm run build && pm2 reload ecosystem.config.js',
     }
   }
