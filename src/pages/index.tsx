@@ -59,7 +59,7 @@ const Login: NextPage = () => {
           </InputGroup>
           {form.formState.errors.site_password && <Text color='red'>{form.formState.errors.site_password?.message}</Text>}
           <Stack direction='row' spacing={4} align='center' justify='end'>
-            <Button type="submit" rightIcon={<IoIosLogIn size={24} />} mt={3} bg='red' color='white' _hover={{
+            <Button isLoading={loginAPI.loading} type="submit" rightIcon={<IoIosLogIn size={24} />} mt={3} bg='red' color='white' _hover={{
               bg: 'red'
             }}>
             </Button>
