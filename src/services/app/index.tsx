@@ -1,17 +1,26 @@
-import http from "../../services"
+import { BaseRequest } from "../../services"
 import { User } from "./types"
 
 const app = {
   list: async (q: string): Promise<any> => {
     if (q) {
-      return await http.get<User[]>(`/users?${q}`)
+      return await BaseRequest({
+        url: `/users?${q}`,
+        method: "GET",
+      }) as User[];
     } else {
-      return await http.get<User[]>(`/users`)
+      return await BaseRequest({
+        url: `/users`,
+        method: "GET",
+      }) as User[];
     }
   },
 
   getPortfolio: async (id: string): Promise<any> => {
-    return await http.get<any>(`/portfolio/${id}`)
+    return await BaseRequest({
+      url: `/portfolio/${id}`,
+      method: "GET",
+    });
   },
 }
 

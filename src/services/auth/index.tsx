@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import http from '..'
+import { BaseRequest } from '..'
 import { LoginInput, SysUser } from './types'
 
 const tokenKey = 'token'
@@ -18,12 +18,17 @@ const auth = {
     localStorage.removeItem(tokenKey)
   },
   login: async (body: LoginInput): Promise<any> => {
-    return await http.post<any>(`/auth/site/signin`, {
-      body
-    })
+    return await BaseRequest({
+      url: `/auth/site/signin`,
+      method: "POST",
+      data: body,
+    });
   },
   me: async (): Promise<SysUser> => {
-    return await http.get<SysUser>(`/auth/site/me`)
+    return await BaseRequest({
+      url: `/auth/site/me`,
+      method: "GET",
+    }) as SysUser
   },
   hasToken: () => !!localStorage.getItem(tokenKey),
   getToken: () => localStorage.getItem(tokenKey),
