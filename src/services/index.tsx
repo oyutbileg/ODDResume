@@ -1,70 +1,110 @@
-import axios, { AxiosRequestConfig, Method } from "axios";
+import { BaseResponse } from '../misc/types'
+import axios, { AxiosRequestConfig, CancelToken } from 'axios'
+import i18n from '../utils/i18n'
+import router from 'next/router'
 import toast from 'react-hot-toast'
-// #region [Response]
-export interface BaseResponse {
-  status_code: number;
-  error_msg: string;
-  body: unknown | any;
-}
-// #endregion
+import auth from './auth'
 
-// #region [BaseRequest]
-interface BaseRequestProps {
-  url: string;
-  method: Method;
-  params?: unknown;
-  data?: unknown;
-  contentType?: string;
+const baseURL = process.env.NEXT_PUBLIC_API_URL
+
+export interface IParams {
+  [key: string]: string
 }
 
-export interface PaginatedResponse {
-  data: any[];
-  pagination: {
-    total: number;
-    pageCount: number;
-    start: number;
-    end: number;
-    limit: number;
-  };
+export interface IHeader {
+  [key: string]: any
 }
 
-const catchError = (err: Error, isMe: boolean) => {
-  const isLogin = window.location.pathname.startsWith("/auth/login");
-  if (isMe) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh");
-    toast.error("Your session has expired. Please login again.");
-    if (!isLogin) window.location.replace("/auth/login");
-  } else {
-    toast.error((err as any).response.data.error_msg);
-  }
-};
+export interface IBody {
+  [key: string]: any
+}
 
-export const BaseRequest = async (props: BaseRequestProps) => {
-  const isMe = props.url === "auth/site/me";
-  const token = localStorage.getItem("token");
-  const locale = localStorage.getItem("locale") || "mn";
-  axios.defaults.headers.common.Accept = "application/json";
-  axios.defaults.headers.common["Accept-Language"] = locale || "mn";
-  axios.defaults.headers.common["Content-Type"] = props.contentType
-    ? props.contentType
-    : "application/json";
-  axios.defaults.headers.common["Access-Control-Allow-Headers"] = "*";
-  if (token) axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  const config: AxiosRequestConfig = {
-    baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
-    ...props,
-  };
-  try {
-    const responseInstance = await axios(config);
-    const response = responseInstance.data as BaseResponse;
-    if (response.status_code !== 200) {
-      return response.body;
+export interface IOption {
+  body?: IBody
+  hasAuth?: boolean
+  headers?: IHeader
+  params?: IParams
+  cancelToken?: CancelToken
+}
+
+const getAuth = (hasAuth = false) =>
+  hasAuth && auth.getToken()
+    ? {
+      authorization: `Bearer ${auth.getToken() !== undefined ? String(auth.getToken()).replaceAll('"', '') : String(auth.getToken())}`
     }
-    return response.body;
-  } catch (err: any) {
-    catchError(err, isMe);
-    throw err;
+    : {}
+
+const genHeader = (hasAuth = false, headers = {}) =>
+  Object.assign(headers, getAuth(hasAuth), { Language: i18n.language })
+
+const handleError = (err: any, reject: any) => {
+  if (err && err?.response?.status === 401) {
+    auth.removeToken()
+    toast.error('Oops, maybe you have to login!.')
+    router.replace('/')
+    return reject(err.response?.data || 'Oops, maybe you have to login!.')
   }
-};
-// #endregion
+
+  if (err && err.response && err.response.data) {
+    return reject(err.response.data)
+  }
+  return reject({ message: 'Network problem, please try again!' })
+}
+
+const request = async <T,>(options: AxiosRequestConfig): Promise<any> => {
+  return await new Promise<BaseResponse<T>>((resolve, reject) => {
+    axios
+      .request<BaseResponse<T>>({
+        baseURL,
+        ...options,
+      })
+      .then((resp) => {
+        resolve(resp.data)
+      })
+      .catch((err) => handleError(err, reject))
+  })
+}
+
+const http = {
+  get: async <T,>(url: string, options?: IOption): Promise<T> => {
+    return await request<T>({
+      method: 'GET',
+      url,
+      headers: genHeader(options?.hasAuth, options?.headers) as any,
+      params: options?.params,
+      cancelToken: options?.cancelToken,
+    }).then((data) => {
+      return data.body
+    })
+  },
+  post: async <T,>(url: string, options?: IOption): Promise<T> => {
+    return await request<T>({
+      method: 'POST',
+      url,
+      headers: genHeader(options?.hasAuth, options?.headers) as any,
+      data: options?.body,
+      cancelToken: options?.cancelToken,
+    }).then((data) => data.body)
+  },
+  put: async <T,>(url: string, options?: IOption): Promise<T> => {
+    return await request<T>({
+      method: 'PUT',
+      url,
+      headers: genHeader(options?.hasAuth, options?.headers) as any,
+      data: options?.body,
+      cancelToken: options?.cancelToken,
+    }).then((data) => data.body)
+  },
+  del: async <T,>(url: string, options?: IOption): Promise<T> => {
+    return await request<T>({
+      method: 'DELETE',
+      url,
+      headers: genHeader(options?.hasAuth, options?.headers) as any,
+      data: options?.body,
+      cancelToken: options?.cancelToken,
+    }).then((data) => data.body)
+  },
+  cancelToken: axios.CancelToken.source(),
+}
+
+export default http
