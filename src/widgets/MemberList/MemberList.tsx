@@ -4,7 +4,7 @@ import { SimpleGrid, Box } from '@chakra-ui/react';
 import { DynamicSkeleton, InfinitePagination, MemberCard } from 'src/components'
 import { User } from 'src/services/app/types';
 import app from 'src/services/app';
-const PAGE_LIMIT = 6
+const PAGE_LIMIT = 9
 const MemberList: FC<{}> = () => {
 
   const { data, loading, loadMore, loadingMore } = useInfiniteScroll((d) => {
