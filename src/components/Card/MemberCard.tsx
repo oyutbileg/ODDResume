@@ -16,10 +16,10 @@ const MemberCard: React.FC<{ data: User }> = ({ data }) => {
         <Stack spacing={2} direction='column' align="center" onClick={() => router.push(`/portfolio/${portfolio_id}`)} _hover={{ cursor: 'pointer' }}>
           <Avatar size='2xl' name={`${first_name} ${last_name}`} src={photo ? `${process.env.NEXT_PUBLIC_GET_URL}/${photo}` : ''} />
           <Box textAlign='center'>
-            <Heading size={['md', 'lg']} fontSize='50px'>
+            <Heading size={['sm', 'md']} fontSize='50px'>
               {first_name}
             </Heading>
-            <Heading size={['md', 'lg']} fontSize='50px'>
+            <Heading size={['sm', 'md']} fontSize='50px'>
               {last_name}
             </Heading>
             <Text color={'gray.500'} noOfLines={1} fontSize={'1rem'}>{position}</Text>

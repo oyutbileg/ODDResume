@@ -5,7 +5,8 @@ const Footer: React.FC = () => {
   return (
     <Box mt={20}>
       <Flex justifyContent="center" alignItems="center" p={5}>
-        Made with ❤️ by Outsourcing Team
+        {/* Made with ❤️ by Outsourcing Team */}
+        Contact: odd@mobicom.mn
       </Flex>
     </Box>
   )
