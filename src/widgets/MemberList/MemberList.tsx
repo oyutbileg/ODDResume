@@ -19,7 +19,7 @@ const MemberList: FC<{}> = () => {
       <React.Fragment>
         {loading && <DynamicSkeleton size={3} />}
         {!loading && data &&
-          <SimpleGrid columns={[1, 2, 3]} spacing='10'>
+          <SimpleGrid columns={[1, 2, 4]} spacing='10'>
             {data.list?.map((item: User, i: number) => {
               return <Box key={i}>
                 <MemberCard data={item} />

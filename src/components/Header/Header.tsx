@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <>
       <Center>
-        <Text fontSize={['2xl', '3xl', '4xl']} align='center'> Mobicom - Outsourcing Development Team Members</Text>
+        <Text fontSize={['md', 'lg', '2xl']} align='center'> Mobicom - Outsourcing Development Team Members</Text>
       </Center>
     </>
   )
