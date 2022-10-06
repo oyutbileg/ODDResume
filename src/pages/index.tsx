@@ -27,7 +27,6 @@ const Login: NextPage = () => {
   const loginAPI = useRequest(auth.login, {
     manual: true,
     onSuccess: async (res, [values]) => {
-      console.log(values);
       auth.saveToken(res.token)
       dispatchUser({ type: 'SIGN_IN', user: (await auth.me()) })
       router.replace('/team')
