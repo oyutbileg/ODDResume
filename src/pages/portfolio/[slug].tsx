@@ -14,11 +14,16 @@ const Portfolio: FC<{}> = () => {
 
   const router = useRouter()
 
-  const { loading, data } = useRequest(() => app.getPortfolio(router.query.slug as string), {
+  const { loading, data, run } = useRequest(() => app.getPortfolio(router.query.slug as string), {
+    manual: true,
     onSuccess: (res) => {
       setResult(res.data)
     }
   });
+
+  useEffect(() => {
+    run()
+  }, [router.query.slug, run])
 
   useEffect(() => {
     return () => {
