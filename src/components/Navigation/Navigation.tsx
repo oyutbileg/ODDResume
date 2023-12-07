@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // Components
 import {
   Flex,
@@ -7,12 +7,14 @@ import {
   IconButton,
   useColorModeValue,
   useColorMode,
-  Text
+  Text,
+  Image
 } from '@chakra-ui/react'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { IoIosLogOut } from 'react-icons/io'
 import { useAuth } from 'src/contexts/auth'
 import { useRouter } from 'next/router'
+import logo from 'public/logo.png';
 
 type Props = {
   title: any,
@@ -36,6 +38,7 @@ const NavLink: React.FC<Props> = ({ title, href }) => (
 
 const Navigation: React.FC<{ additionalMenu?: boolean }> = ({ additionalMenu = false }) => {
   const { toggleColorMode } = useColorMode()
+  const { setColorMode } = useColorMode()
   const text = useColorModeValue('dark', 'light')
   const SwitchIcon = useColorModeValue(FaMoon, FaSun)
 
@@ -46,6 +49,10 @@ const Navigation: React.FC<{ additionalMenu?: boolean }> = ({ additionalMenu = f
     dispatchUser({ type: 'SIGN_OUT' })
     router.replace('/')
   }
+
+  useEffect(() => {
+    setColorMode('dark');
+  }, []);
 
   return (
     <>
@@ -61,10 +68,64 @@ const Navigation: React.FC<{ additionalMenu?: boolean }> = ({ additionalMenu = f
             }}
             href={'/'}
           >
-            <Text fontWeight='extrabold' fontSize="2xl">{'Mobicom'}</Text>
+            <Image
+                objectFit="cover"
+                boxSize={{ sm: "50px", md: "50px" }}
+                alt="logo"
+                src={logo.src}
+                fallbackSrc='https://via.placeholder.com/250'
+                style={{
+                  objectFit:"contain"
+                }}
+              />
           </Link>
         </HStack>
-
+        <Flex alignItems={'center'}>
+          <HStack spacing={8} alignItems={'center'}>
+            <Link
+              px={2}
+              py={1}
+              rounded={'md'}
+              _hover={{
+                textDecoration: 'none',
+                bg: useColorModeValue('gray.200', 'gray.700'),
+              }}
+              href={'/home'}
+            >
+              <Text fontWeight='extrabold' fontSize="2xl">{'Home'}</Text>
+            </Link>
+          </HStack>
+          <HStack spacing={8} alignItems={'center'}>
+            <Link
+              px={2}
+              py={1}
+              rounded={'md'}
+              _hover={{
+                textDecoration: 'none',
+                bg: useColorModeValue('gray.200', 'gray.700'),
+              }}
+              href={'/team'}
+            >
+              <Text fontWeight='extrabold' fontSize="2xl">{'Team'}</Text>
+            </Link>
+          </HStack>
+          <HStack spacing={8} alignItems={'center'}>
+            <Link
+              px={2}
+              py={1}
+              rounded={'md'}
+              _hover={{
+                textDecoration: 'none',
+                bg: useColorModeValue('gray.200', 'gray.700'),
+              }}
+              href={'/about'}
+            >
+              <Text fontWeight='extrabold' fontSize="2xl">{'About'}</Text>
+            </Link>
+          </HStack>
+        </Flex>
+        
+        
         <Flex alignItems={'center'}>
           {additionalMenu && <HStack spacing={8} alignItems={'center'}>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>

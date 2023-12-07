@@ -5,7 +5,7 @@ import { DynamicSkeleton, InfinitePagination, MemberCard } from 'src/components'
 import { User } from 'src/services/app/types';
 import app from 'src/services/app';
 const PAGE_LIMIT = 100
-const MemberList: FC<{}> = () => {
+const MemberList: FC<{type: String}> = (type) => {
 
   const { data, loading, loadMore, loadingMore } = useInfiniteScroll((d) => {
     const page = d ? Math.ceil(d.list.length / PAGE_LIMIT) + 1 : 1
@@ -15,6 +15,19 @@ const MemberList: FC<{}> = () => {
   const hasMore = data && data.list.length < data.total
 
   return (
+    type.type === "home" ? 
+    <Box my={10} display="flex" flexDirection="row" flexWrap="nowrap" justifyContent="center" overflowX="auto">
+    <React.Fragment>
+      {loading && <DynamicSkeleton size={3} />}
+      {!loading && data && data.list?.map((item: User, i: number) => (
+        <Box key={i} mx={2} my={2}>
+          <MemberCard data={item} />
+        </Box>
+      ))}
+      {hasMore && <InfinitePagination loading={loadingMore} loadMore={loadMore} />}
+    </React.Fragment>
+  </Box>
+    : 
     <Box my={10}>
       <React.Fragment>
         {loading && <DynamicSkeleton size={3} />}
@@ -30,6 +43,7 @@ const MemberList: FC<{}> = () => {
         {hasMore && <InfinitePagination loading={loadingMore} loadMore={loadMore} />}
       </React.Fragment>
     </Box>
+    
   )
 }
 

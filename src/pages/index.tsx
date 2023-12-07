@@ -37,7 +37,7 @@ const Login: NextPage = () => {
     onSuccess: async (res, [_values]) => {
       auth.saveToken(res.token)
       dispatchUser({ type: 'SIGN_IN', user: await auth.me() })
-      router.replace('/team')
+      router.replace('/home')
     },
   })
 
